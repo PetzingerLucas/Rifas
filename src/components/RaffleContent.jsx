@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import Context from "../context/Context";
 
 function RaffleContent() {
+  const state = useContext(Context).state;
   return (
     <div
       style={{
@@ -10,11 +12,18 @@ function RaffleContent() {
         display: "flex",
       }}
     >
-      <div className="content-container">
-        <h2>Kit Churrasco</h2>
-        <h3>1 Por R$10 e 2 por R$15</h3>
-        <h5>1kg de carne, 1 coca cola</h5>
-      </div>
+      {
+        <div className="content-container">
+          <h2>{state.name.toUpperCase()}</h2>
+          <h3>
+            {`1 nome por R$${state.price},00 ou ${state.offset} nomes por `}
+            <em style={{ color: "green", fontSize: "x-large" }}>
+              R${state.promoPrice * state.offset},00
+            </em>
+          </h3>
+          <h5>{state.description}</h5>
+        </div>
+      }
     </div>
   );
 }

@@ -4,10 +4,13 @@ import Context from "../context/Context";
 function Form() {
   const [inputName, setInputName] = useState("");
   const [inputPhone, setInputPhone] = useState("");
-  const { setUser } = useContext(Context);
+  const { setUser, user } = useContext(Context);
   const handleNameChange = ({ target }) => {
     setInputName(target.value);
-    setUser(target.value);
+    setUser({
+      ...user,
+      name: target.value,
+    });
   };
 
   const handlePhoneChange = ({ target }) => {
@@ -39,8 +42,7 @@ function Form() {
         value={inputPhone}
         onChange={handlePhoneChange}
         type="tel"
-        maxlength="15"
-        onkeyup="handlePhone(event)"
+        maxLength="15"
         name="phone"
         id="phone"
       />

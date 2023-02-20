@@ -2,22 +2,37 @@ import React, { useContext, useState } from "react";
 import Context from "../context/Context";
 
 function NameContainer(props) {
-  const { total, setTotal, price, user } = useContext(Context);
+  const { setTotal, user, state, setUser } = useContext(Context);
   const [isSelected, setIsSelected] = useState(false);
   const [currentUser, setCurrentUser] = useState("");
 
   const handleClick = () => {
-    if (user.length > 0) {
+    calcTotal();
+    if (user.name.length > 0) {
       setIsSelected(!isSelected);
       if (!isSelected) {
-        setCurrentUser(user);
-        setTotal(total + price);
+        setCurrentUser(user.name.toUpperCase());
+        setUser({
+          ...user,
+          selectionQty: user.selectionQty + 1,
+        });
       } else {
-        setTotal(total - price);
         setCurrentUser("");
+        setUser({
+          ...user,
+          selectionQty: user.selectionQty - 1,
+        });
       }
     } else {
       alert("Por favor, preencha seus dados antes de escolher!");
+    }
+  };
+
+  const calcTotal = () => {
+    if (user.selectionQty > state.offset) {
+      setTotal(user.selectionQty * state.promoPrice);
+    } else {
+      setTotal(user.selectionQty * state.price);
     }
   };
 
@@ -29,7 +44,7 @@ function NameContainer(props) {
       className={isSelected ? "selected-container" : "name-container"}
     >
       <p>{props.name}</p>
-      <p className="user-name-text">{currentUser.toUpperCase()}</p>
+      <p className="user-name-text">{currentUser}</p>
     </div>
   );
 }

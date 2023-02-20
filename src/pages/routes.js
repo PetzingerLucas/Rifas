@@ -1,14 +1,18 @@
-// import React from "react";
-// import { Route, BrowserRouter } from "react-router-dom";
+import React from "react";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import GenerateRaffle from "./GenerateRaffle";
 
-// import RafflePage from "./RafflePage";
+import RafflePage from "./RafflePage";
 
-// const Routes = () => {
-//   return (
-//     <BrowserRouter>
-//       <Route component={<RafflePage />} path="/" exact />
-//     </BrowserRouter>
-//   );
-// };
+const Path = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<RafflePage />} path="/rifa" exact />
+        <Route element={<GenerateRaffle />} path="/criar" exact />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
-// export default Routes;
+export default Path;
